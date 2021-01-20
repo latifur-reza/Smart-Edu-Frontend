@@ -1,0 +1,30 @@
+<div class="row">
+    <div class="col-md-12">
+      <div class="card text-center">
+        <div class="card-body">
+          
+          <form [formGroup]="classroomJoinForm" (ngSubmit)="joinClassroom()">
+  
+            <div class="form-group text-left">
+              <label><b>Classroom Code : </b><span style="color: red;">*</span></label>
+                <input class="form-control" 
+                      type="text" 
+                      name="IdClassrooms" 
+                      id= "IdClassrooms"
+                      autocomplete="off"
+                      formControlName="IdClassrooms"
+                      (blur)="validationClassroomJoinForm()"
+                      placeholder="Ex: 1234"/>
+                  <div *ngIf="classroomJoinFormError.IdClassrooms" class="invalid-feedback"><p>{{classroomJoinFormError.IdClassrooms}}</p></div>
+            </div>
+
+            <button type="submit" [disabled]="!classroomJoinForm.valid" class="btn btn-primary">Submit</button>
+            &nbsp;
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          </form>
+        </div>
+      </div>
+    </div>
+</div>
+    
+    

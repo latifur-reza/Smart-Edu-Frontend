@@ -1,0 +1,30 @@
+<div class="row">
+    <div class="col-md-12">
+      <div class="card text-center">
+        <div class="card-body">
+          
+          <form [formGroup]="classroomForm" (ngSubmit)="insertClassroom()">
+  
+            <div class="form-group text-left">
+              <label><b>Title : </b><span style="color: red;">*</span></label>
+                <input class="form-control" 
+                      type="text" 
+                      name="Title" 
+                      id= "Title"
+                      autocomplete="off"
+                      formControlName="Title"
+                      (blur)="validationClassroomForm()"
+                      placeholder="Ex: Class One"/>
+                  <div *ngIf="classroomFormError.Title" class="invalid-feedback"><p>{{classroomFormError.Title}}</p></div>
+            </div>
+
+            <button type="submit" [disabled]="!classroomForm.valid" class="btn btn-primary">Submit</button>
+            &nbsp;
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          </form>
+        </div>
+      </div>
+    </div>
+</div>
+    
+    

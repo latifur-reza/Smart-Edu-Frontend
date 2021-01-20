@@ -1,0 +1,43 @@
+<div class="card">
+    <div class="body">
+        <p class="lead">Create an account</p>
+        <form class="form-auth-small m-t-20" [formGroup]="registrationForm" (ngSubmit)="register()">
+            <div class="form-group">
+                <input class="form-control round" 
+                    type="text" 
+                    name="Username" 
+                    id= "Username"
+                    autocomplete="off"
+                    formControlName="Username"
+                    (blur)="validationRegistrationForm()"
+                    placeholder="Your name"/>
+                <div *ngIf="registrationFormError.Username" class="cross-validation-error-message alert alert-danger text-left mt-1">{{registrationFormError.Username}}</div>
+            </div>
+            <div class="form-group">
+                <input class="form-control round" 
+                    type="email" 
+                    name="Email" 
+                    id= "Email"
+                    autocomplete="off"
+                    formControlName="Email"
+                    (blur)="validationRegistrationForm()"
+                    placeholder="Your email"/>
+                <div *ngIf="registrationFormError.Email" class="cross-validation-error-message alert alert-danger text-left mt-1">{{registrationFormError.Email}}</div>
+            </div>
+            <div class="form-group">
+                <input class="form-control round" 
+                    type="password" 
+                    name="Password" 
+                    id= "Password"
+                    autocomplete="off"
+                    formControlName="Password"
+                    (blur)="validationRegistrationForm()"
+                    placeholder="********"/>
+                <div *ngIf="registrationFormError.Password" class="cross-validation-error-message alert alert-danger text-left mt-1">{{registrationFormError.Password}}</div>
+            </div>
+            <button type="submit" [disabled]="!registrationForm.valid" class="btn btn-primary btn-round btn-block">Register</button>                                
+        </form>
+        <div class="separator-linethrough"><span style="color:white;">OR</span></div>
+        <span>Already have an account? <a [routerLink]="['/login']" routerLinkActive="router-link-active" >Login</a></span>
+    </div>
+</div>

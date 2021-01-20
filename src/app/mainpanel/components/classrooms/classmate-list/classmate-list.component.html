@@ -1,0 +1,150 @@
+<div class="block-header">
+    <div class="row clearfix">
+        <div class="col-md-12 col-sm-12 text-center">
+            <h2>Classmates</h2>
+        </div>
+    </div>
+</div>
+
+<div class="row clearfix" style="margin-top: 10px;">
+    <div class="col-md-12 col-sm-12 text-left">
+        <h4>Instructors</h4>
+    </div>
+</div>
+
+<div class="row clearfix">
+    <div class="col-lg-12">
+        
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr style="border-bottom: 1px solid red">
+                        <th>SL</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th *ngIf="isTeacher">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of classroomsTeacher, let i = index">
+                        <td>{{ i + 1 }}</td>
+                        <td>{{item.username}}</td>
+                        <td>{{item.email}}</td>
+                        <td *ngIf="isTeacher">
+                            <a *ngIf="item.idUsers != userId && item.role != 'Creator'" href="#makestudent" data-toggle="modal"><button type="button" class="btn btn-default" (click)="Action(item.idUserHasClassroom,item.username)"><i class="fa fa-edit"></i></button></a>
+                            <a *ngIf="item.idUsers != userId && item.role != 'Creator'" href="#delete" data-toggle="modal"><button type="button" class="btn btn-default" (click)="Action(item.idUserHasClassroom,item.username)"><i class="fa fa-trash"></i></button></a>
+                        </td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+        </div>
+    
+    </div>
+</div>
+
+<div class="row clearfix" style="margin-top: 10px;" *ngIf="classroomsStudent.length > 0">
+    <div class="col-md-12 col-sm-12 text-left">
+        <h4>Students</h4>
+    </div>
+</div>
+
+<div class="row clearfix" *ngIf="classroomsStudent.length > 0">
+    <div class="col-lg-12">
+        
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr style="border-bottom: 1px solid red">
+                        <th>SL</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th *ngIf="isTeacher">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of classroomsStudent, let i = index">
+                        <td>{{ i + 1 }}</td>
+                        <td>{{item.username}}</td>
+                        <td>{{item.email}}</td>
+                        <td *ngIf="isTeacher">
+                            <a href="#maketeacher" data-toggle="modal"><button type="button" class="btn btn-default" (click)="Action(item.idUserHasClassroom,item.username)"><i class="fa fa-edit"></i></button></a>
+                            <a href="#delete" data-toggle="modal"><button type="button" class="btn btn-default" (click)="Action(item.idUserHasClassroom,item.username)"><i class="fa fa-trash"></i></button></a>
+                        </td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+        </div>
+    
+    </div>
+</div>
+
+<!-- Modal for Make Teacher -->
+<div class="modal fade" id="maketeacher" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Make Teacher</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <b>{{actionOn}}</b> will become Teacher. Are you sure?
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="makeTeacherModalClose" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <form #form="ngForm" (submit)="onMakeTeacher(actionId)">
+                    <button type="submit" class="btn btn-success">Confirm</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for Make Student -->
+<div class="modal fade" id="makestudent" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Make Student</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <b>{{actionOn}}</b> will become Student. Are you sure?
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="makeStudentModalClose" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <form #form="ngForm" (submit)="onMakeStudent(actionId)">
+                    <button type="submit" class="btn btn-success">Confirm</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for Delete -->
+<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Delete User</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <b>{{actionOn}}</b> will be deleted. Are you sure?
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="deleteModalClose" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <form #form="ngForm" (submit)="onDelete(actionId)">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

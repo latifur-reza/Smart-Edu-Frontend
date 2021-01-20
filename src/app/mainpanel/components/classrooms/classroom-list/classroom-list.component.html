@@ -1,0 +1,227 @@
+<ngx-spinner bdColor= "rgba(0, 0, 0, 0.8)" size = "default" color = "#fff" type = "pacman" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner>
+
+<div class="row clearfix" style="margin-top: 10px;">
+    <div class="col-md-12 col-sm-12 text-center">
+        <h1>Your Classrooms</h1>
+    </div>
+</div>
+
+<div class="row clearfix" style="margin-bottom: 5px;">
+    <div class="col-md-12 col-sm-12 text-right mb-1">
+        <a href="#addnew" data-toggle="modal"><button class="btn btn-success" (click)="Add()"><i class="fa fa-plus" aria-hidden="true"></i> Add Classroom</button></a> &nbsp;
+        <a href="#joinnew" data-toggle="modal"><button class="btn btn-info" (click)="Join()"><i class="fa fa-plus" aria-hidden="true"></i> Join Classroom</button></a>
+    </div>
+</div>
+
+<div class="row clearfix" style="margin-top: 150px;" *ngIf="classroomsData == null">
+    <div class="col-md-12 col-sm-12 text-center">
+        <h4>Welcome to Smart Edu</h4>
+        <h5>Join or Create Classroom</h5>
+    </div>
+</div>
+
+<div class="row clearfix" style="margin-top: 10px;" *ngIf="classroomsCreator.length > 0">
+    <div class="col-md-12 col-sm-12 text-left">
+        <h4>As Instructor</h4>
+    </div>
+</div>
+
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="row clearfix">
+            <!--Xorton Card start-->
+            
+            <div class="xorton-card" *ngFor="let item of classroomsCreator">
+                <div class="xorton-card-main">
+                    <a [routerLink]="['/classrooms/classmates/',item.idClassrooms]">
+                        <div class="xorton-card-body">
+                            <div class="xorton-card-body-category">
+                                {{item.title}}
+                            </div>
+                        </div>
+                    </a>
+                    <div class="xorton-card-footer">
+                        <ul class="mt-3 list-unstyled d-flex justify-content-center">
+                            <li>
+                                <a href="#viewcode" data-toggle="modal"><button type="button" class="btn btn-default" (click)="ViewCode(item.idClassrooms, item.title)"><i class="fa fa-eye"></i></button></a>
+                            </li>
+                            <li><a href="#update" data-toggle="modal"><button type="button" class="btn btn-default" (click)="Update(item)"><i class="fa fa-edit"></i></button></a></li>
+                            <li>
+                                <a href="#delete" data-toggle="modal"><button type="button" class="btn btn-default" (click)="Delete(item.idClassrooms, item.title)"><i class="fa fa-trash"></i></button></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!--Xorton Card End-->
+
+        </div>
+    </div>
+</div>
+
+<div class="row clearfix" style="margin-top: 10px;" *ngIf="classroomsStudent.length > 0">
+    <div class="col-md-12 col-sm-12 text-left">
+        <h4>As Student</h4>
+    </div>
+</div>
+
+
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="row clearfix">
+            <!--Xorton Card start-->
+            
+            <div class="xorton-card" *ngFor="let item of classroomsStudent">
+                <div class="xorton-card-main">
+                    <a [routerLink]="['/classrooms/classmates/',item.idClassrooms]">
+                        <div class="xorton-card-body">
+                            <div class="xorton-card-body-category">
+                                {{item.title}}
+                            </div>
+                        </div>
+                    </a>
+                    <div class="xorton-card-footer">
+                        <ul class="mt-3 list-unstyled d-flex justify-content-center">
+                            <li>
+                                <a href="#leave" data-toggle="modal"><button type="button" class="btn btn-default" (click)="Leave(item.idClassrooms, item.title)"><i class="fa fa-sign-out"></i></button></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!--Xorton Card End-->
+
+        </div>
+    </div>
+</div>
+
+<!-- Modal for View cide -->
+<div class="modal fade" id="viewcode" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Classroom Code</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="text-align: center;">
+                <b>{{actionId}}</b>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="viewcodeModalClose" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for Delete -->
+<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Delete Classroom</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {{actionOn}} will be Deleted. Are you sure?
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="deleteModalClose" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <form #form="ngForm" (submit)="onDelete(actionId)">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for Leave -->
+<div class="modal fade" id="leave" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Leave Classroom</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                You will leave {{actionOn}}. Are you sure?
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="leaveModalClose" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <form #form="ngForm" (submit)="onLeave(actionId)">
+                    <button type="submit" class="btn btn-danger">Leave</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for Add New -->
+<div *ngIf="addModalCalled" class="modal fade" id="addnew" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">New Classroom</h5>
+                        <button type="button" id="addNewModalClose" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <app-create-classroom (parentFunction) = "ngOnInit()"></app-create-classroom>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for Join -->
+<div *ngIf="joinModalCalled" class="modal fade" id="joinnew" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Join Classroom</h5>
+                        <button type="button" id="joinNewModalClose" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <app-join-classroom (parentFunction) = "ngOnInit()"></app-join-classroom>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for Update -->
+<div *ngIf="editModalCalled" class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Update Classroom</h5>
+                        <button type="button" id="updateModalClose" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <app-update-classroom [parentData] = "ClassroomModel" (parentFunction) = "ngOnInit()"></app-update-classroom>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

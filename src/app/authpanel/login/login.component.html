@@ -1,0 +1,42 @@
+<div class="card">
+    <div class="body">
+        <p class="lead">Login to your account</p>
+        <form class="form-auth-small m-t-20" [formGroup]="signInForm" (ngSubmit)="login()" >
+            <div class="form-group text-left">
+                <label for="email" class="control-label ml-1">Email</label>
+                <input type="email" 
+                       class="form-control round" 
+                       formControlName="email"
+                       type="email"
+                       name="email"
+                       (blur)="validateLoginForm()"
+                       id="email"
+                       placeholder="abc@gmail.com"/>
+                    <div *ngIf="signInFormErrors.email" class="cross-validation-error-message alert alert-danger text-left mt-1">
+                        {{signInFormErrors.email}}
+                    </div>
+            </div>
+            <div class="form-group text-left">
+                <label for="password" class="control-label ml-1">Password</label>
+                <input  
+                      class="form-control round" 
+                      formControlName="password"
+                      type="password"
+                      name="password"
+                      id="password"
+                      placeholder="********"
+                      (blur)="validateLoginForm()"/>
+            <div *ngIf="signInFormErrors.password" class="cross-validation-error-message alert alert-danger text-left mt-1">
+                        {{signInFormErrors.password}}
+            </div>
+            </div>
+            <div>
+                <p *ngIf="invalidStatus" style="color: red;">{{invalidStatus}}</p>
+              </div>
+            <button type="submit" [disabled]="!signInForm.valid" class="btn btn-primary btn-round btn-block">LOGIN</button>
+            <div class="bottom">
+                <span>Don't have an account? <a [routerLink]="['/registration']" routerLinkActive="router-link-active" >Register</a></span>
+            </div>
+        </form>
+    </div>
+</div>
