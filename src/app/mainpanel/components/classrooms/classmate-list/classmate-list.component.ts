@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from 'src/app/services/user.service';
@@ -25,17 +25,22 @@ export class ClassmateListComponent implements OnInit {
   constructor(private _activatedRoute : ActivatedRoute,
               private _userService: UserService,
               private _toastr : ToastrService,
-              ) { }
+              ) { 
+                _activatedRoute.params.subscribe(val => {
+                  this.getUserId();
+                  this.classroomId = this._activatedRoute.snapshot.params.classroomId;
+                  if(this.classroomId > 0){
+                    this.getClassmates();
+                  }
+                });
+              }
 
   ngOnInit() {
-    this.getUserId();
-    this.classroomId = this._activatedRoute.snapshot.params.classroomId;
-    if(this.classroomId > 0){
-      this.getClassmates();
-    }
+    
   }
 
   getClassmates(){
+    this.isTeacher = false;
     this.classroomsTeacher = [];
     this.classroomsStudent = [];
     this._userService.getUsers(this.classroomId).subscribe(response => {

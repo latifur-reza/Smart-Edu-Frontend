@@ -1,7 +1,59 @@
+<!--
 <nav class="navbar navbar-dark bg-dark">
-    <a class="navbar-brand text-white">Smart Edu</a>
+    <a [routerLink]="['/classrooms/list']" class="navbar-brand text-white">Smart Edu</a>
     <button class="btn btn-danger my-2 my-sm-0" (click)="logout()">Logout</button>
 </nav>
 <div class="container">
     <router-outlet></router-outlet>
+</div>
+-->
+<div id="wrapper">
+
+    <nav class="navbar top-navbar">
+        <div class="container-fluid">
+
+            <div class="navbar-left">
+                <div class="navbar-btn">
+                    <a [routerLink]="['/classrooms/list']"><img src="../assets/images/icon.svg" alt="Oculux Logo" class="img-fluid logo"></a>
+                    <button type="button" class="btn-toggle-offcanvas"><i class="lnr lnr-menu fa fa-bars"></i></button>
+                </div>
+            </div>
+            
+            <div class="navbar-right">
+                <div id="navbar-menu">
+                    <ul class="nav navbar-nav">
+                        <li><a (click)="logout()" class="icon-menu"><i class="icon-power"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="progress-container"><div class="progress-bar" id="myBar"></div></div>
+    </nav>
+
+    <div id="left-sidebar" class="sidebar">
+        <div class="navbar-brand">
+            <a [routerLink]="['/classrooms/list']"><img src="../assets/images/icon.svg" alt="Oculux Logo" class="img-fluid logo"><span>Smart Edu</span></a>
+            <button type="button" class="btn-toggle-offcanvas btn btn-sm float-right"><i class="lnr lnr-menu icon-close"></i></button>
+        </div>
+        <div class="sidebar-scroll">
+            
+            <nav id="left-sidebar-nav" class="sidebar-nav">
+                <ul id="main-menu" class="metismenu">
+                    <li *ngIf="classroomsCreator.length > 0" class="header">As Instructor</li>
+                    <li *ngFor="let item of classroomsCreator"><a [routerLink]="['/classrooms/classmates/',item.idClassrooms]"><i class="fa fa-tasks"></i><span>{{item.title}}</span></a></li>
+                    
+                    <li *ngIf="classroomsStudent.length > 0" class="header">As Student</li>
+                    <li *ngFor="let item of classroomsStudent"><a [routerLink]="['/classrooms/classmates/',item.idClassrooms]"><i class="fa fa-tasks"></i><span>{{item.title}}</span></a></li>
+                    
+                </ul>
+            </nav>     
+        </div>
+    </div>
+
+    <div id="main-content">
+        <div class="container-fluid">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+    
 </div>

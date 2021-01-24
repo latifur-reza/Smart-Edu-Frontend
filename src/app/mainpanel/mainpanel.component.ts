@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ClassroomService } from '../services/classroom.service';
 
 @Component({
   selector: 'app-mainpanel',
@@ -8,9 +9,15 @@ import { Router } from '@angular/router';
 })
 export class MainpanelComponent implements OnInit {
 
-  constructor(private _router: Router) { }
+  classroomsData: Array<any>;
+  classroomsCreator: Array<any>;
+  classroomsStudent: Array<any>;
+
+  constructor(private _classroomService: ClassroomService,
+    private _router: Router) { }
 
   ngOnInit() {
+    this.getClassrooms();
   }
 
   logout(){
@@ -20,5 +27,24 @@ export class MainpanelComponent implements OnInit {
     //localStorage.removeItem('token');
     this._router.navigate(['/']);
 
+  }
+
+  getClassrooms(){
+    this.classroomsCreator = [];
+    this.classroomsStudent = [];
+    this._classroomService.getClassrooms().subscribe(response => {
+      this.classroomsData = response;
+      
+      if(this.classroomsData != null){
+        this.classroomsData.forEach(element => {
+          if(element.role == "Student"){
+            this.classroomsStudent.push(element);
+          }else{
+            this.classroomsCreator.push(element);
+          }
+
+        });
+      }
+    });
   }
 }
