@@ -13,14 +13,14 @@
     </div>
 </div>
 
-<div class="row clearfix" style="margin-top: 150px;" *ngIf="classroomsData == null">
+<div class="row clearfix" style="margin-top: 150px;" *ngIf="this._sharedService.classroomsData == null">
     <div class="col-md-12 col-sm-12 text-center">
         <h4>Welcome to Smart Edu</h4>
         <h5>Join or Create Classroom</h5>
     </div>
 </div>
 
-<div class="row clearfix" style="margin-top: 10px;" *ngIf="classroomsCreator.length > 0">
+<div class="row clearfix" style="margin-top: 10px;" *ngIf="this._sharedService.classroomsCreator.length > 0">
     <div class="col-md-12 col-sm-12 text-left">
         <h4>As Instructor</h4>
     </div>
@@ -31,7 +31,7 @@
         <div class="row clearfix">
             <!--Xorton Card start-->
             
-            <div class="xorton-card" *ngFor="let item of classroomsCreator">
+            <div class="xorton-card" *ngFor="let item of this._sharedService.classroomsCreator">
                 <div class="xorton-card-main">
                     <a [routerLink]="['/classrooms/classmates/',item.idClassrooms]">
                         <div class="xorton-card-body">
@@ -60,7 +60,7 @@
     </div>
 </div>
 
-<div class="row clearfix" style="margin-top: 10px;" *ngIf="classroomsStudent.length > 0">
+<div class="row clearfix" style="margin-top: 10px;" *ngIf="this._sharedService.classroomsStudent.length > 0">
     <div class="col-md-12 col-sm-12 text-left">
         <h4>As Student</h4>
     </div>
@@ -72,7 +72,7 @@
         <div class="row clearfix">
             <!--Xorton Card start-->
             
-            <div class="xorton-card" *ngFor="let item of classroomsStudent">
+            <div class="xorton-card" *ngFor="let item of this._sharedService.classroomsStudent">
                 <div class="xorton-card-main">
                     <a [routerLink]="['/classrooms/classmates/',item.idClassrooms]">
                         <div class="xorton-card-body">

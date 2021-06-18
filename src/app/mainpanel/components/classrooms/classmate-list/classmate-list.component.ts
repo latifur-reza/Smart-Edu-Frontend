@@ -26,24 +26,29 @@ export class ClassmateListComponent implements OnInit {
               private _userService: UserService,
               private _toastr : ToastrService,
               ) { 
-                _activatedRoute.params.subscribe(val => {
-                  this.getUserId();
-                  this.classroomId = this._activatedRoute.snapshot.params.classroomId;
-                  if(this.classroomId > 0){
-                    this.getClassmates();
-                  }
-                });
+                this.initialize();
               }
 
   ngOnInit() {
     
   }
 
+  initialize(){
+    this._activatedRoute.params.subscribe(val => {
+      this.getUserId();
+      this.classroomId = this._activatedRoute.snapshot.params.classroomId;
+      if(this.classroomId > 0){
+        this.getClassmates();
+      }
+    });
+  }
+
   getClassmates(){
-    this.isTeacher = false;
-    this.classroomsTeacher = [];
-    this.classroomsStudent = [];
     this._userService.getUsers(this.classroomId).subscribe(response => {
+      this.isTeacher = false;
+      this.classmatesData = [];
+      this.classroomsTeacher = [];
+      this.classroomsStudent = [];
       this.classmatesData = response;
 
       if(this.classmatesData != null){
@@ -84,7 +89,7 @@ export class ClassmateListComponent implements OnInit {
         let element: HTMLElement = document.getElementById('makeTeacherModalClose') as HTMLElement;
         element.click();
         this._toastr.success("Successfully Made Teacher", "Make Teacher");
-        this.ngOnInit();
+        this.initialize();
       },
       err=>{
         this._toastr.error("Please try again", "Make Teacher");
@@ -98,7 +103,7 @@ export class ClassmateListComponent implements OnInit {
         let element: HTMLElement = document.getElementById('makeStudentModalClose') as HTMLElement;
         element.click();
         this._toastr.success("Successfully Made Student", "Make Student");
-        this.ngOnInit();
+        this.initialize();
       },
       err=>{
         this._toastr.error("Please try again", "Make Student");
@@ -112,7 +117,7 @@ export class ClassmateListComponent implements OnInit {
         let element: HTMLElement = document.getElementById('deleteModalClose') as HTMLElement;
         element.click();
         this._toastr.success("Successfully Deleted", "Delete User");
-        this.ngOnInit();
+        this.initialize();
       },
       err=>{
         this._toastr.error("Please try again", "Delete User");

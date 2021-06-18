@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { ClassroomService } from 'src/app/services/classroom.service';
+import { SharedService } from 'src/app/services/shared.service';
 
 @Component({
   selector: 'app-classroom-list',
@@ -18,40 +19,14 @@ export class ClassroomListComponent implements OnInit {
   actionOn : string;
   
   ClassroomModel : any;
-  classroomsData: Array<any>;
-  classroomsCreator: Array<any>;
-  classroomsTeacher: Array<any>;
-  classroomsStudent: Array<any>;
   
   constructor(private _classroomService: ClassroomService,
+              private _sharedService: SharedService,
               private _toastr : ToastrService,
-              private _sppinerService: NgxSpinnerService,
               ) { }
 
   ngOnInit() {
-    this.getClassrooms();
-  }
-  
-
-  getClassrooms(){
-    this._sppinerService.show();
-    this.classroomsCreator = [];
-    this.classroomsStudent = [];
-    this._classroomService.getClassrooms().subscribe(response => {
-      this.classroomsData = response;
-      
-      if(this.classroomsData != null){
-        this.classroomsData.forEach(element => {
-          if(element.role == "Student"){
-            this.classroomsStudent.push(element);
-          }else{
-            this.classroomsCreator.push(element);
-          }
-
-        });
-      }
-      this._sppinerService.hide();
-    });
+    this._sharedService.getClassrooms();
   }
 
   ViewCode(id:number, key:any){
@@ -94,7 +69,7 @@ export class ClassroomListComponent implements OnInit {
         let element: HTMLElement = document.getElementById('deleteModalClose') as HTMLElement;
         element.click();
         this._toastr.success("Successfully Deleted", "Delete Classroom");
-        this.ngOnInit();
+        this._sharedService.getClassrooms();
       },
       err=>{
         this._toastr.error("Please try again", "Delete Classroom");
@@ -108,7 +83,7 @@ export class ClassroomListComponent implements OnInit {
         let element: HTMLElement = document.getElementById('leaveModalClose') as HTMLElement;
         element.click();
         this._toastr.success("Successfully Leave Classroom", "Leave Classroom");
-        this.ngOnInit();
+        this._sharedService.getClassrooms();
       },
       err=>{
         this._toastr.error("Please try again", "Leave Classroom");
