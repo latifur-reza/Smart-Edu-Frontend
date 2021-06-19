@@ -20,7 +20,7 @@
     </div>
 </div>
 
-<div class="row clearfix" style="margin-top: 10px;" *ngIf="this._sharedService.classroomsCreator.length > 0">
+<div class="row clearfix" style="margin-top: 10px;" *ngIf="this._sharedService.classroomsCreator">
     <div class="col-md-12 col-sm-12 text-left">
         <h4>As Instructor</h4>
     </div>
@@ -33,7 +33,7 @@
             
             <div class="xorton-card" *ngFor="let item of this._sharedService.classroomsCreator">
                 <div class="xorton-card-main">
-                    <a [routerLink]="['/classrooms/classmates/',item.idClassrooms]">
+                    <a [routerLink]="['/classrooms/',item.idClassrooms,'assignments']">
                         <div class="xorton-card-body">
                             <div class="xorton-card-body-category">
                                 {{item.title}}
@@ -60,7 +60,7 @@
     </div>
 </div>
 
-<div class="row clearfix" style="margin-top: 10px;" *ngIf="this._sharedService.classroomsStudent.length > 0">
+<div class="row clearfix" style="margin-top: 10px;" *ngIf="this._sharedService.classroomsStudent">
     <div class="col-md-12 col-sm-12 text-left">
         <h4>As Student</h4>
     </div>
@@ -74,7 +74,7 @@
             
             <div class="xorton-card" *ngFor="let item of this._sharedService.classroomsStudent">
                 <div class="xorton-card-main">
-                    <a [routerLink]="['/classrooms/classmates/',item.idClassrooms]">
+                    <a [routerLink]="['/classrooms/',item.idClassrooms,'assignments']">
                         <div class="xorton-card-body">
                             <div class="xorton-card-body-category">
                                 {{item.title}}

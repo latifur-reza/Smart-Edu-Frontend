@@ -11,6 +11,6 @@ export const ClassroomRoutes : Route[] = [
     },
     
     {
-        path : 'classmates/:classroomId', component : ClassmateListComponent
+        path : ':classroomId/classmates', component : ClassmateListComponent
     },
 ];

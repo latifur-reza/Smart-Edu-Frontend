@@ -33,3 +33,19 @@ export const classroomJoinValidationMsg = {
         pattern : "This field must be a valid number."
     }
 }
+
+export const assignmentValidationMsg = {
+    Title: {
+        required: "Title is required",
+    },
+    TotalMarks: {
+        required: "Total Marks is required",
+        pattern : "This field must be a valid number."
+    },
+    StartedAt: {
+        required: "This field is required",
+    },
+    EndedAt: {
+        required: "This field is required",
+    }
+}

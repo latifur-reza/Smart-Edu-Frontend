@@ -1,8 +1,12 @@
-<div class="block-header">
-    <div class="row clearfix">
-        <div class="col-md-12 col-sm-12 text-center">
-            <h2>Classmates</h2>
-        </div>
+<div class="row clearfix" style="margin-top: 10px;">
+    <div class="col-md-12 col-sm-12 text-center">
+        <h2>Classmates</h2>
+    </div>
+</div>
+
+<div class="row clearfix" style="margin-bottom: 5px;">
+    <div class="col-md-12 col-sm-12 text-left mb-1">
+        <a [routerLink]="['/classrooms/',classroomId,'assignments']"><button class="btn btn-primary"><i class="fa fa-eye" aria-hidden="true"></i> View Assignments</button></a> &nbsp;
     </div>
 </div>
 
@@ -43,13 +47,13 @@
     </div>
 </div>
 
-<div class="row clearfix" style="margin-top: 10px;" *ngIf="classroomsStudent.length > 0">
+<div class="row clearfix" style="margin-top: 10px;" *ngIf="classroomsStudent">
     <div class="col-md-12 col-sm-12 text-left">
         <h4>Students</h4>
     </div>
 </div>
 
-<div class="row clearfix" *ngIf="classroomsStudent.length > 0">
+<div class="row clearfix" *ngIf="classroomsStudent">
     <div class="col-lg-12">
         
         <div class="table-responsive">
