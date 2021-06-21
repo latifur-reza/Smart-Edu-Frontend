@@ -16,7 +16,6 @@ export class AssignmentListComponent implements OnInit {
   actionId : number;
   actionOn : string;
   addModalCalled : boolean = false;
-  joinModalCalled : boolean = false;
   editModalCalled : boolean = false;
   
   AssignmentModel : any;

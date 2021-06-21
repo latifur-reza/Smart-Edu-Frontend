@@ -1,0 +1,41 @@
+<div class="row">
+    <div class="col-md-12">
+      <div class="card text-center">
+        <div class="card-body">
+          
+          <form [formGroup]="questionForm" (ngSubmit)="updateQuestion()">
+  
+            <div class="form-group text-left">
+              <label><b>Question : </b><span style="color: red;">*</span></label>
+                <input class="form-control" 
+                      type="text" 
+                      name="QuestionPart" 
+                      id= "QuestionPart"
+                      autocomplete="off"
+                      formControlName="QuestionPart"
+                      (blur)="validationQuestionForm()"
+                      placeholder="Ex: Question One"/>
+                  <div *ngIf="questionFormError.QuestionPart" class="invalid-feedback"><p>{{questionFormError.QuestionPart}}</p></div>
+            </div>
+
+            <div class="form-group text-left">
+              <label><b>Marks : </b><span style="color: red;">*</span></label>
+                <input class="form-control" 
+                      type="text" 
+                      name="Marks" 
+                      id= "Marks"
+                      autocomplete="off"
+                      formControlName="Marks"
+                      (blur)="validationQuestionForm()"
+                      placeholder="Ex: 100"/>
+                  <div *ngIf="questionFormError.Marks" class="invalid-feedback"><p>{{questionFormError.Marks}}</p></div>
+            </div>
+
+            <button type="submit" [disabled]="!questionForm.valid" class="btn btn-primary">Submit</button>
+            &nbsp;
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          </form>
+        </div>
+      </div>
+    </div>
+</div>

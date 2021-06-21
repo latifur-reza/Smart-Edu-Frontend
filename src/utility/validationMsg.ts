@@ -49,3 +49,13 @@ export const assignmentValidationMsg = {
         required: "This field is required",
     }
 }
+
+export const questionValidationMsg = {
+    QuestionPart: {
+        required: "Title is required",
+    },
+    Marks: {
+        required: "Marks is required",
+        pattern : "This field must be a valid number."
+    }
+}

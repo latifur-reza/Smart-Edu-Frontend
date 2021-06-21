@@ -8,6 +8,7 @@ import { RouterModule } from '@angular/router';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { ClassroomsComponent } from './components/classrooms/classrooms.component';
 import { AssignmentsComponent } from './components/assignments/assignments.component';
+import { QuestionsComponent } from './components/questions/questions.component';
 
 
 
@@ -16,6 +17,7 @@ import { AssignmentsComponent } from './components/assignments/assignments.compo
     DashboardComponent,
     ClassroomsComponent,
     AssignmentsComponent,
+    QuestionsComponent,
   ],
   imports: [
     CommonModule,

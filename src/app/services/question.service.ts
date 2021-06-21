@@ -7,19 +7,19 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
-export class ClassroomService {
+export class QuestionService {
 
   private urlPrefix: string;
   private finalUrl: string;
 
   constructor(private httpClient: HttpclientService) {
-    this.urlPrefix = "api/v1.0/Classroom";
+    this.urlPrefix = "api/v1.0/Question";
     this.finalUrl = "";
   }
 
-  getClassrooms(): Observable<any>{ 
+  getQuestions(classroomId : number,assignmentId : number): Observable<any>{ 
     try {
-      this.finalUrl = this.urlPrefix + "/list";
+      this.finalUrl = this.urlPrefix + "/list/" + classroomId + "/" + assignmentId;
       return this.httpClient 
         .get<Array<any>>(`${this.finalUrl}`)
         .pipe(tap(), catchError(this.handleError));
@@ -29,9 +29,9 @@ export class ClassroomService {
     }
   }
 
-  findClassroom(classroomId : number): Observable<any>{ 
+  findQuestion(questionId : number): Observable<any>{ 
     try {
-      this.finalUrl = this.urlPrefix + "/find/" + classroomId;
+      this.finalUrl = this.urlPrefix + "/find/" + questionId;
       return this.httpClient 
         .find<any>(`${this.finalUrl}`)
         .pipe(tap(), catchError(this.handleError));
@@ -40,52 +40,30 @@ export class ClassroomService {
       throw e;
     }
   }
-  
-  postClassroom(classroom){
+
+  postQuestion(question){
     try {
       this.finalUrl = this.urlPrefix + "/create";
       return this.httpClient
-        .post(`${this.finalUrl}`,classroom)
+        .post(`${this.finalUrl}`,question)
         .pipe(tap(), catchError(this.handleError));
     } catch (error) {
       throw error;
     }
   }
 
-  putClassroom(id : number,classroom){
+  putQuestion(id : number,question){
     try {
       this.finalUrl = this.urlPrefix + "/update/" + id;
       return this.httpClient
-        .put(`${this.finalUrl}`,classroom)
+        .put(`${this.finalUrl}`,question)
         .pipe(tap(), catchError(this.handleError));
     } catch (error) {
       throw error;
     }
   }
 
-  joinClassroom(id : number){
-    try {
-      this.finalUrl = this.urlPrefix + "/join/" + id;
-      return this.httpClient
-        .put(`${this.finalUrl}`,null)
-        .pipe(tap(), catchError(this.handleError));
-    } catch (error) {
-      throw error;
-    }
-  }
-
-  leaveClassroom(id : number){
-    try {
-      this.finalUrl = this.urlPrefix + "/leave/" + id;
-      return this.httpClient
-        .put(`${this.finalUrl}`,null)
-        .pipe(tap(), catchError(this.handleError));
-    } catch (error) {
-      throw error;
-    }
-  }
-
-  deleteClassroom(id : number){
+  deleteQuestion(id : number){
     try {
       this.finalUrl = this.urlPrefix + "/delete/" + id;
       return this.httpClient

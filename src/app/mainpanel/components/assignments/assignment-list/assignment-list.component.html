@@ -17,10 +17,9 @@
     <table class="table table-hover table-custom spacing8">
         <thead>
             <tr>
-                <th class="w60">Assignment Title</th>
-                <th></th>
-                <th>Start Time</th>
-                <th>End Time</th>
+                <th>Assignment Title</th>
+                <th class="w170">Start Time</th>
+                <th class="w170">End Time</th>
                 <th class="w100">Action</th>
             </tr>
         </thead>
@@ -28,10 +27,7 @@
             
             <tr *ngFor="let item of assignmentsData, let i = index">
                 
-                <td class="width45">
-                    <div class="avtar-pic w35 bg-pink" data-toggle="tooltip" data-placement="top" title="" data-original-title="Avatar Name"><span>{{ i + 1 }}</span></div>
-                </td>
-                <a [routerLink]="['/classrooms/',item.idClassrooms,'assignments',item.idAssignments]">
+                <a [routerLink]="['/classrooms/',item.idClassrooms,'assignments',item.idAssignments,'questions']">
                 <td>
                     <h6 class="mb-0">{{ item.title }}</h6>
                     <span>Total Marks : {{ item.totalMarks }}</span>

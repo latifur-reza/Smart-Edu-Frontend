@@ -22,6 +22,11 @@ export const MainpanelRoutes : Route[] = [
                 loadChildren: () => import('./components/assignments/assignments.module').then(m => m.AssignmentsModule),
                 canActivate:[AuthGuard]
             },
+            {
+                path : 'classrooms',
+                loadChildren: () => import('./components/questions/questions.module').then(m => m.QuestionsModule),
+                canActivate:[AuthGuard]
+            },
         ]
     }
 ];

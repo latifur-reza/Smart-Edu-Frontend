@@ -1,0 +1,71 @@
+<div class="row">
+    <div class="col-md-12">
+      <div class="card text-center">
+        <div class="card-body">
+          
+          <form [formGroup]="assignmentForm" (ngSubmit)="updateAssignment()">
+  
+            <input type="hidden" name="IdAssignments" id="IdAssignments" formControlName="IdAssignments">
+
+            <div class="form-group text-left">
+              <label><b>Title : </b><span style="color: red;">*</span></label>
+                <input class="form-control" 
+                      type="text" 
+                      name="Title" 
+                      id= "Title"
+                      autocomplete="off"
+                      formControlName="Title"
+                      (blur)="validationAssignmentForm()"
+                      placeholder="Ex: Assignment One"/>
+                  <div *ngIf="assignmentFormError.Title" class="invalid-feedback"><p>{{assignmentFormError.Title}}</p></div>
+            </div>
+
+            <div class="form-group text-left">
+              <label><b>Total Marks : </b><span style="color: red;">*</span></label>
+                <input class="form-control" 
+                      type="text" 
+                      name="TotalMarks" 
+                      id= "TotalMarks"
+                      autocomplete="off"
+                      formControlName="TotalMarks"
+                      (blur)="validationAssignmentForm()"
+                      placeholder="Ex: 100"/>
+                  <div *ngIf="assignmentFormError.TotalMarks" class="invalid-feedback"><p>{{assignmentFormError.TotalMarks}}</p></div>
+            </div>
+
+            <div class="form-group text-left">
+              <label><b>Start At : </b></label>
+                <input class="form-control" 
+                      [owlDateTimeTrigger]="dt20" 
+                      [owlDateTime]="dt20"
+                      name="StartedAt" 
+                      id= "StartedAt"
+                      autocomplete="off"
+                      formControlName="StartedAt"
+                      (blur)="validationAssignmentForm()"/>
+                      <owl-date-time [hour12Timer]="true" #dt20></owl-date-time>
+                  <div *ngIf="assignmentFormError.StartedAt" class="invalid-feedback"><p>{{assignmentFormError.StartedAt}}</p></div>
+            </div>
+
+            <div class="form-group text-left">
+              <label><b>End At : </b></label>
+                <input class="form-control" 
+                      [owlDateTimeTrigger]="dt21" 
+                      [owlDateTime]="dt21"
+                      name="EndedAt" 
+                      id= "EndedAt"
+                      autocomplete="off"
+                      formControlName="EndedAt"
+                      (blur)="validationAssignmentForm()"/>
+                      <owl-date-time [hour12Timer]="true" #dt21></owl-date-time>
+                  <div *ngIf="assignmentFormError.EndedAt" class="invalid-feedback"><p>{{assignmentFormError.EndedAt}}</p></div>
+            </div>
+
+            <button type="submit" [disabled]="!assignmentForm.valid" class="btn btn-primary">Submit</button>
+            &nbsp;
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          </form>
+        </div>
+      </div>
+    </div>
+</div>
